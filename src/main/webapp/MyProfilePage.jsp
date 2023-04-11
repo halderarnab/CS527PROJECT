@@ -26,14 +26,14 @@
 			</div>
 			
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
-				<ul class="nav navbar-nav">
+				<!-- <ul class="nav navbar-nav">
 					<li class = "active" ><a href="#">Home</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Contact</a></li>
-				</ul>
+				</ul> -->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li>
-					<li><a href="#">Login <i class = "fa fa-user"></i></a></li>
+					<!-- <li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li> -->
+					<li><a href="#">Log out<i class = "fa fa-user"></i></a></li>
 				</ul>
 			</div>
 		</div>

@@ -43,10 +43,10 @@ public class loginCheck extends HttpServlet {
 			if (rs.next()) {
 				HttpSession session = request.getSession();
 				session.setAttribute("email", email);
-				response.sendRedirect("welcome.jsp");
+				response.sendRedirect("WelcomePage.jsp");
 			} else {
 				request.setAttribute("message", "Invalid username or password");
-				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
 				rd.forward(request, response);
 				}
 			con.close();
