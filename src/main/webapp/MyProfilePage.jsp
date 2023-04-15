@@ -10,30 +10,34 @@
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link href="./css/cs527project1.css" rel="stylesheet" type = "text/css">
 </head>
 
 <body>
-	<nav class = "navbar navbar-default navbar-fixed-top">
+	<nav class = "navbar navbar-default">
 		<div class="container">
-			<div class="navbar-header">
-				 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+			<div class="navbar-header">	
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
 					 <span class="sr-only">Toggle navigation</span> 
 					 <span class="icon-bar"></span> 
 					 <span class="icon-bar"></span> 
 					 <span class="icon-bar"></span>
-				 </button>
-				<a href="#" class="navbar-brand">Buy Me</a>
-			</div>
-			
+				 </button>			 
+				<a href="WelcomePage.jsp" class="navbar-brand">Buy Me</a>
+			</div>			
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
-				<!-- <ul class="nav navbar-nav">
-					<li class = "active" ><a href="#">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul> -->
+				<ul class="nav navbar-nav">
+					<!-- <li class = "active" ><a href="#">Home</a></li> -->
+					<li><a href="#">Create Auction</a></li>
+					<li><a href="#">Place Bid</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<!-- <li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li> -->
-					<li><a href="#">Log out<i class = "fa fa-user"></i></a></li>
+					<form id="lgout" action="logout" method="POST">
+						<li>
+							<a href="#" onclick="document.querySelector('#lgout').submit()">Log out <i class = "fa fa-user"></i></a>
+						</li>
+					</form>
 				</ul>
 			</div>
 		</div>
@@ -41,11 +45,12 @@
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div id = "context">
-					<h1>Buy Me</h1>
-					<h3>Auction Platform</h3>
+				<div id = "context">				
+					<button class = "btn btn-default btn-lg">Edit Info</button>
 					<hr>
-					<button class = "btn btn-default btn-lg"><i class = "fa fa-paw"></i> Get Started!</button>
+					<button class = "btn btn-default btn-lg">Order History</button>
+					<hr>
+					<button class = "btn btn-default btn-lg">Create New Auction</button>
 				</div>
 			</div>
 		</div>		
