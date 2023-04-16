@@ -33,11 +33,11 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<!-- <li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li> -->
-					<form id="lgout" action="logout" method="POST">
-						<li>
+					<li>
+						<form id="lgout" action="logout" method="POST">						
 							<a href="#" onclick="document.querySelector('#lgout').submit()">Log out <i class = "fa fa-user"></i></a>
-						</li>
-					</form>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -45,12 +45,14 @@
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div id = "context">				
-					<button class = "btn btn-default btn-lg">Edit Info</button>
-					<hr>
-					<button class = "btn btn-default btn-lg">Order History</button>
-					<hr>
-					<button class = "btn btn-default btn-lg">Create New Auction</button>
+				<div id = "context">		
+					<form action="WelcomePage.jsp" type="POST">		
+						<button class = "btn btn-default btn-lg size">Edit Info</button>
+						<hr>
+						<button class = "btn btn-default btn-lg size">Order History</button>
+						<hr>
+						<button class = "btn btn-default btn-lg size">Create New Auction</button>
+					</form>
 				</div>
 			</div>
 		</div>		

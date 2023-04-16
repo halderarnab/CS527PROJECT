@@ -17,9 +17,8 @@ hr {
   float: right;
 }
 
-.login_box {
-  text-align: center;
-  padding-top: 25%
+.login_fields {
+  width: 80px;
 }
 
 .login_msg {
@@ -34,4 +33,8 @@ hr {
 
 #lgout{
 	padding-top: 25%;
+}
+
+.size {
+	width: 200px;
 }
