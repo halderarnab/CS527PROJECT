@@ -36,10 +36,11 @@
 			</div>
 		</div>
 	</nav>
+	<hr>
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div id = "context">
+				<div id = "context" style="left: 10%">
 					<form action="loginCheck" method="post">
 						<label class="login_fields">Email:</label>
 						<input type="text" name="email" placeholder="johndoe@gmail.com" required><br>

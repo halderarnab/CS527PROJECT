@@ -46,11 +46,15 @@
 		<div class = "row">
 			<div class = "col-lg-12">
 				<div id = "context">		
-					<form action="WelcomePage.jsp" type="POST">		
+					<form action="updateInfo.jsp" method="POST">		
 						<button class = "btn btn-default btn-lg size">Edit Info</button>
-						<hr>
+					</form>
+					<hr>
+					<form action="WelcomePage.jsp" method="POST">		
 						<button class = "btn btn-default btn-lg size">Order History</button>
-						<hr>
+					</form>
+					<hr>
+					<form action="WelcomePage.jsp" method="POST">
 						<button class = "btn btn-default btn-lg size">Create New Auction</button>
 					</form>
 				</div>

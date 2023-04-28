@@ -1,11 +1,11 @@
 package com.cs527.pkg;
 
-import java.io.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import javax.servlet.*;
+//import java.io.*;
+//import java.sql.Connection;
+//import java.sql.SQLException;
+//import javax.servlet.*;
 import javax.servlet.http.*;
-import java.sql.*;
+//import java.sql.*;
 import javax.servlet.annotation.WebServlet;
 
 
@@ -25,7 +25,7 @@ public class logout extends HttpServlet {
 			if (session != null) {
 				session.invalidate(); // Invalidate the session to logout the user
 			}
-			response.sendRedirect("LoginPage.jsp");
+			response.sendRedirect("login.jsp");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

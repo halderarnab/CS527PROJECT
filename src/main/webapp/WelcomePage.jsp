@@ -1,20 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.cs527.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+<head>
+	<link href="./css/cs527project1.css" rel="stylesheet" type = "text/css">
+	<title>Home Page</title>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href="./css/cs527project1.css" rel="stylesheet" type = "text/css">
-	</head>
-	<body>
-	
+</head>
+<body>
 	<nav class = "navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">	
@@ -29,7 +22,7 @@
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
 				<ul class="nav navbar-nav">
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
-					<li><a href="./WelcomePage.jsp">Create Auction</a></li>
+					<li><a href="#">Create Auction</a></li>
 					<li><a href="#">Place Bid</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -43,52 +36,15 @@
 			</div>
 		</div>
 	</nav>
-
-		<% try {
-	
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
-
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected radio button from the index.jsp
-			String entity = request.getParameter("command");
-			//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
-			String str = "SELECT * FROM auction;" ;
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-		%>
-		
-		<center><b ><font size="+3">Available Auctions</font></b></center><br><br><br>
-		
-		
-		
-		<% while (result.next()) { %>
-				<img style="float:left" src =  <%=  "./images/auction/" + result.getString("image_name") %> width ="150" height="150">
-		
-				<p><b><%= result.getString("name") %></b></p>
-				<p> <%= result.getString("description") %> </p>
-				<p> <b>Start Time:</b> <%= result.getString("start_timestamp") %></p>
-				<p> <b>End Time: </b> <%= result.getString("end_timestamp") %></p>
-				<form action="goToAuction" method="post">
-					<button data-auctionid=<%= result.getInt("auction_id") %>  type="submit"> Go To Auction</button>
-					<input type="hidden" name="auctionid" value=<%= result.getInt("auction_id") %> />
-				</form>
-				<br>
-				<hr style="clear: both;">
-				
-
-			<% }
-			//close the connection.
-			db.closeConnection(con);
-			%>
-			
-			<%} catch (Exception e) {
-			out.print(e);
-		}%>
-			
-
-
-	</body>
+	<h1 style="margin-left:2%;">Welcome, <%=session.getAttribute("email")%>!</h1>
+	<script src="https://code.jquery.com/jquery-2.1.4.	js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<div>
+		<hr>	
+		<form action="LandingPage.jsp" method="POST">	
+		<button class = "btn btn-default btn-lg size" style="margin-left:2%;">Available Auctions</button>
+		</form>
+		<hr>		
+	</div>
+</body>
 </html>
