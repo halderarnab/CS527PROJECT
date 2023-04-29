@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>Welcome Page</title>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -33,6 +33,9 @@
 					<li><a href="#">Place Bid</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<%if(session.getAttribute("email").equals("admin")){ %>
+						<li><a href="AdminPage.jsp">Administrator</a></li>
+					<%}%>
 					<li><a href="MyProfilePage.jsp">My Profile Page</a></li>
 					<li>
 						<form id="lgout" action="logout" method="POST">						
