@@ -44,7 +44,7 @@
 						<button class = "btn btn-default btn-lg size">Answer Questions</button>
 					</form>
 					<hr>
-					<form action="" method="POST">		
+					<form action="ManageAccountsPage.jsp" method="POST">		
 						<button class = "btn btn-default btn-lg size">Manage Accounts</button>
 					</form>
 					<hr>
