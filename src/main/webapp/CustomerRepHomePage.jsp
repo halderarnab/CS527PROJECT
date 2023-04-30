@@ -5,7 +5,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Administrator</title>
+	<title>Customer Representative Home</title>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -21,20 +21,10 @@
 					 <span class="icon-bar"></span> 
 					 <span class="icon-bar"></span>
 				 </button>			 
-				<a href="WelcomePage.jsp" class="navbar-brand">Buy Me</a>
+				<a href="CustomerRepHomePage.jsp" class="navbar-brand">Buy Me</a>
 			</div>			
-			<div class="collapse navbar-collapse" id="bs-nav-demo">
-				<ul class="nav navbar-nav">
-					<!-- <li class = "active" ><a href="#">Home</a></li> -->
-					<li><a href="./WelcomePage.jsp">Create Auction</a></li>
-					<li><a href="#">Place Bid</a></li>
-					<li><a href="QuestionsPage.jsp">Q&A</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<%if(session.getAttribute("email").equals("admin")){ %>
-						<li class="active"><a href="AdminPage.jsp">Administrator</a></li>
-					<%}%>
-					<li><a href="MyProfilePage.jsp">My Profile Page</a></li>
+			<div class="collapse navbar-collapse" id="bs-nav-demo">				
+				<ul class="nav navbar-nav navbar-right">					
 					<li>
 						<form id="lgout" action="logout" method="POST">						
 							<a href="#" onclick="document.querySelector('#lgout').submit()">Log out <i class = "fa fa-user"></i></a>
@@ -44,16 +34,26 @@
 			</div>
 		</div>
 	</nav>
+
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div id = "context">		
-					<form action="ManageCustomerRepsPage.jsp" method="POST">		
-						<button class = "btn btn-default btn-lg size">Manage Customer <br>Representatives</button>
+				<div id = "context">
+					<h2>Customer Representative Home</h2><br>
+					<form action="AnswerQuestionsPage.jsp" method="POST">		
+						<button class = "btn btn-default btn-lg size">Answer Questions</button>
 					</form>
 					<hr>
-					<form action="SalesReportPage.jsp" method="POST">		
-						<button class = "btn btn-default btn-lg size">Sales Report</button>
+					<form action="" method="POST">		
+						<button class = "btn btn-default btn-lg size">Manage Accounts</button>
+					</form>
+					<hr>
+					<form action="" method="POST">		
+						<button class = "btn btn-default btn-lg size">Remove Bids</button>
+					</form>
+					<hr>
+					<form action="" method="POST">		
+						<button class = "btn btn-default btn-lg size">Remove Auctions</button>
 					</form>
 				</div>
 			</div>

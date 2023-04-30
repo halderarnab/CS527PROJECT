@@ -31,6 +31,7 @@
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
 					<li><a href="./WelcomePage.jsp">Create Auction</a></li>
 					<li><a href="#">Place Bid</a></li>
+					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<%if(session.getAttribute("email").equals("admin")){ %>
@@ -92,6 +93,7 @@
 		}%>
 			
 
-
+		<script src="https://code.jquery.com/jquery-2.1.4.	js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</body>
 </html>

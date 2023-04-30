@@ -30,6 +30,7 @@
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
 					<li><a href="#">Create Auction</a></li>
 					<li><a href="#">Place Bid</a></li>
+					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<!-- <li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li> -->
