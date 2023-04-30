@@ -86,7 +86,7 @@ public class PostBid extends HttpServlet {
 		//System.out.println("bankAccount '" + bankAccountNo+ "'");
 		//System.out.println("bankAccount Length" + bankAccountNo.length());
 		
-		String updateBankAccount = "INSERT INTO bid(bid_id, price, timestamp, upper_limit, auction_id, user_id) values(?,?,NOW(),?,?,?)";
+		String updateBankAccount = "INSERT INTO bid(bid_id, price, timestamp, upper_limit, auction_id, user_id) values(?,?,NOW(),?,?,?);";
 
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		try {
@@ -100,13 +100,12 @@ public class PostBid extends HttpServlet {
 			ps.setInt(4, auctionId);
 			ps.setInt(5, userId);
 			ps.executeUpdate();
-			//con.commit();
-			//System.out.println("updated Bank Account to " + bankAccountNo);
+			
 			con.close();
-			request.setAttribute("message", "Bid Posted");
-			//response.sendRedirect("updateInfo.jsp");
-			RequestDispatcher rd = request.getRequestDispatcher("AuctionIndividual.jsp");
-			rd.forward(request, response);
+			//con.close();
+			//request.setAttribute("message", "Bid Posted");
+			//RequestDispatcher rd = request.getRequestDispatcher("AuctionIndividual.jsp");
+			//rd.forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,5 +113,43 @@ public class PostBid extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Connection conn = null;
+		try {
+			conn = db.getConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		java.sql.CallableStatement cStmt;
+		try {
+			cStmt = conn.prepareCall("{CALL bid_automatic(?,?)}");
+			//cStmt.registerOutParameter(1, java.sql.Types.BOOLEAN);
+			cStmt.setInt(1, auctionId);
+			cStmt.setInt(2, MaxBid);
+			cStmt.execute();
+			request.setAttribute("message", "Bid posted and Updated as per automatic bidding");
+			//boolean currPrice = cStmt.getBoolean(1);
+			//System.out.println("currPrice: " + currPrice);
+			//if (currPrice == true) {
+			//	request.setAttribute("message", "Bid posted and Updated as per automatic bidding");
+			//}
+			//else {
+			//	request.setAttribute("message", "Error in automatic bidding with boolean return variable");
+			//}
+			conn.close();
+			RequestDispatcher rd = request.getRequestDispatcher("AuctionIndividual.jsp");
+			rd.forward(request, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
