@@ -29,7 +29,7 @@
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
 				<ul class="nav navbar-nav">
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
-					<li><a href="./WelcomePage.jsp">Create Auction</a></li>
+					<li><a href="./CreateAuctionPage.jsp">Create Auction</a></li>
 					<li><a href="#">Place Bid</a></li>
 					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
@@ -62,6 +62,8 @@
 			String str = "SELECT * FROM auction;" ;
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
+			
+
 		%>
 		
 		<center><b ><font size="+3">Available Auctions</font></b></center><br><br><br>
