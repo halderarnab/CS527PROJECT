@@ -59,13 +59,6 @@
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 			
-			
-			 File directory = new File(System.getenv("images_path")  +  File.separator + "auction" );
-		    if (! directory.exists()){
-		        directory.mkdir();
-		        // If you require it to make the entire directory path including parents,
-		        // use directory.mkdirs(); here instead.
-		    }
 
 		%>
 		
