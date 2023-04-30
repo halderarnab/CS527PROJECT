@@ -48,24 +48,25 @@
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div id = "context">
-					<h2>Unanswered Questions</h2><br>
+				<div>
+					<%try {
+						//Get the database connection
+						ApplicationDB db = new ApplicationDB();	
+						Connection con = db.getConnection();						
+						//Create a SQL statement
+						Statement stmt = con.createStatement();
+					
+					%>
+					<a href="CustomerRepHomePage.jsp">Back</a>
+					<h2 align="center">Unanswered Questions</h2><br>
 					<table id="cust_rep" style="width:100%" align="center">
 						<tr>
 							<th>No.</th>
+							<th>Email</th>
 							<th>Questions</th>
 							<th>Answers</th>
 						</tr>
-						<% try {
-							//Get the database connection
-							ApplicationDB db = new ApplicationDB();	
-							Connection con = db.getConnection();						
-							//Create a SQL statement
-							Statement stmt = con.createStatement();
-							
-							String email = session.getAttribute("email").toString();
-							
-							String query = "SELECT * FROM QUESTIONS WHERE ANSWER = 'Not Answered'" ;
+						<%	String query = "SELECT * FROM QUESTIONS Q, USER U WHERE Q.USER_ID = U.USER_ID AND ANSWER = 'Not Answered' ORDER BY QID" ;
 							PreparedStatement ps = con.prepareStatement(query);
 														
 							ResultSet result = ps.executeQuery();							
@@ -75,62 +76,42 @@
 						%>
 							<tr>
 								<td><%=count %></td>
+								<td style="word-break: break-all"><%=result.getString("email") %></td>
 								<td style="word-break: break-all"><%=result.getString("question") %></td>
 								<td style="word-break: break-all">
-									<input 
-									<%=result.getString("answer") %>
-								</td>							
-								<%-- <td>
-								<form action="EditCustomerRepPage.jsp" method="POST">
-									<input type="submit" value="Edit">
-									<input type="hidden" name="empid" value=<%=result.getString("employee_id") %>>
-								</form>
-								</td>		 --%>						
+									<form action="AnswerQuestion.jsp" method="POST">
+										<input type="text" name="answer" placeholder="<%=result.getString("answer") %>">
+										<input type="hidden" name="qid" value=<%=result.getString("qid") %>><br><br>
+										<input type="submit" value="Submit">
+									</form>							
+								</td>																			
 							</tr>
 						<%
 								count++;
-							}
-							con.close();
-							db.closeConnection(con);
-						} catch(Exception e) {
-							e.printStackTrace();
-						}
+							}							
 						%>
 					</table>
-					<h2>Answered Questions</h2><br>
+					<h2 align="center">Answered Questions</h2><br>
 					<table id="cust_rep" style="width:100%" align="center">
 						<tr>
 							<th>No.</th>
+							<th>Email</th>
 							<th>Questions</th>
 							<th>Answers</th>
 						</tr>
-						<% try {
-							//Get the database connection
-							ApplicationDB db = new ApplicationDB();	
-							Connection con = db.getConnection();						
-							//Create a SQL statement
-							Statement stmt = con.createStatement();
-							
-							String email = session.getAttribute("email").toString();
-							
-							String query = "SELECT * FROM QUESTIONS WHERE ANSWER != 'Not Answered'" ;
-							PreparedStatement ps = con.prepareStatement(query);
+						<% 	query = "SELECT * FROM QUESTIONS Q, USER U WHERE Q.USER_ID = U.USER_ID AND ANSWER != 'Not Answered' ORDER BY QID" ;
+							ps = con.prepareStatement(query);
 														
-							ResultSet result = ps.executeQuery();							
+							result = ps.executeQuery();							
 							
-							int count = 1;
+							count = 1;
 							while(result.next()) {
 						%>
 							<tr>
 								<td><%=count %></td>
+								<td style="word-break: break-all"><%=result.getString("email") %></td>
 								<td style="word-break: break-all"><%=result.getString("question") %></td>
-								<td style="word-break: break-all"><%=result.getString("answer") %></td>							
-								<%-- <td>
-								<form action="EditCustomerRepPage.jsp" method="POST">
-									<input type="submit" value="Edit">
-									<input type="hidden" name="empid" value=<%=result.getString("employee_id") %>>
-								</form>
-								</td>		 --%>						
+								<td style="word-break: break-all"><%=result.getString("answer") %></td>																					
 							</tr>
 						<%
 								count++;
@@ -142,6 +123,8 @@
 						}
 						%>
 					</table>
+					<br>
+					<a href="CustomerRepHomePage.jsp">Back</a>
 				</div>
 			</div>
 		</div>		
