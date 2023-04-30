@@ -43,6 +43,7 @@ public class loginCheck extends HttpServlet {
 			if (rs.next()) {
 				HttpSession session = request.getSession();
 				session.setAttribute("email", email);
+				session.setAttribute("user_id", rs.getInt("user_id"));
 				response.sendRedirect("WelcomePage.jsp");
 			} else {
 				request.setAttribute("message", "Invalid username or password");
