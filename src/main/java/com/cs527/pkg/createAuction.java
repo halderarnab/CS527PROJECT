@@ -85,7 +85,7 @@ public class createAuction extends HttpServlet {
 		    
 		    File f = new File( uniqueName);
 		    System.out.println(" path:" + path);
-	        ImageIO.write(bf, "jpeg", new File( path ));
+	        ImageIO.write(bf, extension, new File( path ));
 
 	        
 	        
