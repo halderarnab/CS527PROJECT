@@ -41,10 +41,21 @@ public class loginCheck extends HttpServlet {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
+				int uid = rs.getInt("user_id");
+				String query = "SELECT * FROM CUSTOMER_REPRESENTATIVE WHERE EMPLOYEE_ID = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, rs.getString("user_id"));
+				rs = ps.executeQuery();
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("email", email);
-				session.setAttribute("user_id", rs.getInt("user_id"));
-				response.sendRedirect("WelcomePage.jsp");
+				session.setAttribute("user_id", uid);
+				
+				if(rs.next()) {
+					response.sendRedirect("CustomerRepHomePage.jsp");
+				} else 				
+					response.sendRedirect("WelcomePage.jsp");
+								
 			} else {
 				request.setAttribute("message", "Invalid username or password");
 				RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
