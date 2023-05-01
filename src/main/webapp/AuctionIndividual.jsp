@@ -19,7 +19,7 @@
 		function hidePopup() {
 			document.getElementById('popup').style.display = 'none';
 		}
-		function validateForm(currPrice, increment) {
+		function validateForm(currPrice, increment, timeDiff) {
 		    var bidPrice = parseFloat(document.getElementById("bidPrice").value);
 		    var autoBid = parseFloat(document.getElementById("autoBid").value);
 		    if (bidPrice <= currPrice) {
@@ -27,7 +27,7 @@
 		        return false;
 		    }
 		    if (bidPrice < (currPrice+increment)) {
-		        alert("Bidding amount increment should be greter than the minimum increment value.");
+		        alert("Bidding amount increment should be greater than the minimum increment value.");
 		        return false;
 		    }
 		    if (autoBid <= bidPrice) {
@@ -36,7 +36,6 @@
 		    }
 		    return true;
 		}
-
 	</script>
 	<style type="text/css">
 		#popup {
@@ -158,18 +157,11 @@
 		<div style="height: 93%; width: 65%; float: left; display: inline-block; border: 1px solid black; margin-left: 1%; margin-top: 1%;">
 			<img src =  "<%= "./images/auction/" + imageName %>" style="height:100%;">
 		</div>
-		<!--
-		<div id="myButton" style=" cursor: pointer; height: 10%; width: 32%; border: 1px solid black; float: right; margin-right: 1%; margin-bottom: 1%; margin-top: 1%; display: inline-block;">
-  			<form action="SubmitBid.jsp" method="post">
-				<button onclick="showPopup()" type="submit">Bid Now</button>
-			</form>
-		</div>
-		-->
 
 	<button onclick="showPopup()" type="submit">Bid Now</button>
 	<div id="popup">
 		<div id="popup-container">
-			<form action="PostBid" method="post" onsubmit="return validateForm(<%= currPrice %>, autoBid, <%= increment %>)">
+			<form action="PostBid" method="post" onsubmit="return validateForm(<%= currPrice %>, <%= increment %>);">
 				<p style="text-align: left;"><b>Current Price:</b> <%= currPrice %></p>
 				<label for="bidPrice">Price:</label>
 				<input type="text" id="bidPrice" name="bidPrice"><br><br>
