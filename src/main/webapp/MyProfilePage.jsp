@@ -75,6 +75,7 @@
 	 		
 			ResultSet resultBidHistory = null;
 			ResultSet resultSellHistory = null;
+			ResultSet resultUserAlert = null;
 	 		String enteredUserEmail = request.getParameter("user_email");
 	 		if (enteredUserEmail != null && !enteredUserEmail.isEmpty()) {
 	 			//String strBidHistory = "select distinct b.user_id, a.name from bid b, auction a where user_id = ? and b.auction_id = a.auction_id;";
@@ -100,6 +101,11 @@
 				ps4.setString(1, userEmail);
 				resultSellHistory = ps4.executeQuery();
 			}
+			////////////////////////////////////////////////////////////////
+	 			String strUserAlert = "SELECT alert_message, alert_time FROM user_alert WHERE user_id = ? AND ALERT_TIME >= (NOW() - INTERVAL 1 MONTH) ORDER BY ALERT_TIME DESC;";
+	 			PreparedStatement ps5 = con.prepareStatement(strUserAlert);
+	 			ps5.setInt(1, userId);
+	 	  		resultUserAlert = ps5.executeQuery();
 	%>
 	<div>
 		<hr>
@@ -108,17 +114,17 @@
   			<input type="text" name="user_email" />
   			<input type="submit" value="View Records" />
 		</form>
-		<div style="height: 93%; width: 45%; border: 1px solid black; float: left; margin-left: 1%; margin-right: 1%; margin-top: 1%; display: inline-block;  padding-left: 1%; padding-right: 1%; text-align: left">
+		<div style="height: 93%; width: 48%; border: 1px solid black; float: left; margin-left: 1%; margin-right: 1%; margin-top: 1%; display: inline-block;  padding-left: 1%; padding-right: 1%; text-align: left">
 			<h5 style= "text-align: center">User side Auction History</h5>
 			<hr>
-			<table style="border: 1px solid black;">
+			<table style="border: 1px solid black; margin-right: 1%; margin-left: 1%; align: center; width: 98%;">
   				<thead>
     				<tr style="border: 1px solid black;">
       					<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; ">User email</th>
       					<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; ">Auction Name</th>
 					</tr>
 				</thead>
-				<tbody style="margin-right: 1%; margin-left: 1%;">
+				<tbody style="margin-right: 1%; margin-left: 1%; align: center; width: 98%;">
 					<% while (resultBidHistory.next()) { %>
 						<tr style="border: 1px solid black; padding-left: 1%; padding-right: 1%;">
 							<td style="border: 1px solid black; padding-left: 1%; padding-right: 1%;"> <%= resultBidHistory.getString("email") %> </td>
@@ -128,17 +134,17 @@
 				</tbody>
 			</table><br>	
 		</div>
-		<div style="height: 93%; width: 45%; border: 1px solid black; float: left; margin-left: 1%; margin-right: 1%; margin-top: 1%; display: inline-block;  padding-left: 1%; padding-right: 1%; text-align: left">
+		<div style="height: 93%; width: 48%; border: 1px solid black; float: left; margin-left: 1%; margin-right: 1%; margin-top: 1%; display: inline-block;  padding-left: 1%; padding-right: 1%; text-align: left">
 			<h5 style= "text-align: center">Seller side Auction History</h5>
 			<hr>
-			<table style="border: 1px solid black;">
+			<table style="border: 1px solid black; margin-right: 1%; margin-left: 1%; align: center; width: 98%;">
   				<thead>
     				<tr style="border: 1px solid black;">
       					<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; ">Seller email</th>
       					<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; ">Auction Name</th>
 					</tr>
 				</thead>
-				<tbody style="margin-right: 1%; margin-left: 1%;">
+				<tbody style="margin-right: 1%; margin-left: 1%; align: center; width: 98%;">
 					<% while (resultSellHistory.next()) { %>
 						<tr style="border: 1px solid black; padding-left: 1%; padding-right: 1%;">
 							<td style="border: 1px solid black; padding-left: 1%; padding-right: 1%;"> <%= resultSellHistory.getString("seller_email") %> </td>
@@ -148,6 +154,26 @@
 				</tbody>
 			</table><br>	
 		</div>
+	</div>
+		<div style="height: 93%; width: 98%; border: 1px solid black; align: center; margin-left: 1%; margin-right: 1%; margin-top: 1%; display: inline-block;  padding-left: 1%; padding-right: 1%; text-align: left">
+		<h5 style= "text-align: center">Last 30 days Alerts</h5>
+		<hr>
+		<table style="border: 1px solid black; align: center; width: 98%; margin-right: 1%; margin-left: 1%;">
+  			<thead>
+    			<tr style="border: 1px solid black;">
+    				<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; width: 50%;">Alert Message</th>
+     				<th style="border: 1px solid black; padding-left: 1%; padding-right: 1%; width: 50%;">Date and Time</th>
+				</tr>
+			</thead>
+			<tbody style="margin-right: 1%; margin-left: 1%; align: center; width: 98%; align: center;">
+				<% while (resultUserAlert.next()) { %>
+					<tr style="border: 1px solid black; padding-left: 1%; padding-right: 1%;">
+						<td style="border: 1px solid black; padding-left: 1%; padding-right: 1%; width: 50%;"> <%= resultUserAlert.getString("alert_message") %> </td>
+						<td style="border: 1px solid black; padding-left: 1%; padding-right: 1%; width: 50%;"> <%= resultUserAlert.getTimestamp("alert_time") %> </td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table><br>	
 	</div>
 	<%	} catch (Exception e) {
 			out.print(e);
