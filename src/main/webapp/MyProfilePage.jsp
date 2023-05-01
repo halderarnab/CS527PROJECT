@@ -30,8 +30,7 @@
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
 				<ul class="nav navbar-nav">
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
-					<li><a href="#">Create Auction</a></li>
-					<li><a href="#">Place Bid</a></li>
+					<li><a href="CreateAuctionPage.jsp">Create Auction</a></li>
 					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -39,6 +38,7 @@
 					<%if(session.getAttribute("email").equals("admin")){ %>
 						<li><a href="AdminPage.jsp">Administrator</a></li>
 					<%}%>
+					<li class="active"><a href="MyProfilePage.jsp">My Profile Page</a></li>
 					<li>
 						<form id="lgout" action="logout" method="POST">						
 							<a href="#" onclick="document.querySelector('#lgout').submit()">Log out <i class = "fa fa-user"></i></a>
@@ -55,12 +55,8 @@
 					<form action="updateInfo.jsp" method="POST">		
 						<button class = "btn btn-default btn-lg size">Edit Info</button>
 					</form>
-					<hr>
-					<form action="WelcomePage.jsp" method="POST">		
-						<button class = "btn btn-default btn-lg size">Order History</button>
-					</form>
-					<hr>
-					<form action="WelcomePage.jsp" method="POST">
+					<hr>					
+					<form action="CreateAuctionPage.jsp" method="POST">
 						<button class = "btn btn-default btn-lg size">Create New Auction</button>
 						<hr>
 						<button class = "btn btn-default btn-lg size" type="button" value="load" onclick="window.location='InterestPage.jsp'" >My Interests</button>

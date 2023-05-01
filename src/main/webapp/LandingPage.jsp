@@ -28,10 +28,13 @@
 			<div class="collapse navbar-collapse" id="bs-nav-demo">
 				<ul class="nav navbar-nav">
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
-					<li><a href="./WelcomePage.jsp">Create Auction</a></li>
-					<li><a href="#">Place Bid</a></li>
+					<li><a href="CreateAuctionPage.jsp">Create Auction</a></li>
+					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<%if(session.getAttribute("email").equals("admin")){ %>
+						<li><a href="AdminPage.jsp">Administrator</a></li>
+					<%}%>
 					<li><a href="MyProfilePage.jsp">My Profile Page</a></li>
 					<li>
 						<form id="lgout" action="logout" method="POST">						
