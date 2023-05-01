@@ -56,6 +56,8 @@
 						<button class = "btn btn-default btn-lg size">Order History</button>
 						<hr>
 						<button class = "btn btn-default btn-lg size">Create New Auction</button>
+						<hr>
+						<button class = "btn btn-default btn-lg size" type="button" value="load" onclick="window.location='InterestPage.jsp'" >My Interests</button>
 					</form>
 				</div>
 			</div>
