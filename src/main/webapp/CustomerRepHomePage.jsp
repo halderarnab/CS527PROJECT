@@ -44,16 +44,16 @@
 						<button class = "btn btn-default btn-lg size">Answer Questions</button>
 					</form>
 					<hr>
-					<form action="" method="POST">		
+					<form action="ManageAccountsPage.jsp" method="POST">		
 						<button class = "btn btn-default btn-lg size">Manage Accounts</button>
 					</form>
 					<hr>
-					<form action="" method="POST">		
-						<button class = "btn btn-default btn-lg size">Remove Bids</button>
+					<form action="ManageBidsPage.jsp" method="POST">		
+						<button class = "btn btn-default btn-lg size">Manage Bids</button>
 					</form>
 					<hr>
-					<form action="" method="POST">		
-						<button class = "btn btn-default btn-lg size">Remove Auctions</button>
+					<form action="ManageAuctionsPage.jsp" method="POST">		
+						<button class = "btn btn-default btn-lg size">Manage Auctions</button>
 					</form>
 				</div>
 			</div>
