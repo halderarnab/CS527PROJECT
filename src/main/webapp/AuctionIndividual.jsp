@@ -94,7 +94,7 @@
 	<%
 		// String imageName = (String) session.getAttribute("imageName");
 		//int auctionId = Integer.parseInt((int) session.getAttribute("auctionId"));
-		int auctionId = (int) session.getAttribute("auctionId");
+		int auctionId = Integer.parseInt( session.getAttribute("auctionId").toString());
 
 	 	try {
 			//Get the database connection

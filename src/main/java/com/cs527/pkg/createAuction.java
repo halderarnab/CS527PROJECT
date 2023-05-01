@@ -90,8 +90,8 @@ public class createAuction extends HttpServlet {
 	        
 	        
 	        String createAuction = "INSERT INTO AUCTION(name, description, conditionn, category_id, sub_category_id, start_price, secret_min_price, increment,"
-	        		+ "image_name, start_timestamp, end_timestamp, seller_id)"
-					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+	        		+ "image_name, start_timestamp, end_timestamp, seller_id, seller_email)"
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			
 			PreparedStatement pstmt = con.prepareStatement(createAuction);
 			pstmt.setString(1, name);
@@ -112,6 +112,7 @@ public class createAuction extends HttpServlet {
 			pstmt.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
 			pstmt.setTimestamp(11, sqlDate);
 			pstmt.setInt(12, Integer.parseInt(session.getAttribute("user_id").toString()));
+			pstmt.setString(13, session.getAttribute("seller_email").toString());
 			
 //			System.out.println("user id: " + );
 
