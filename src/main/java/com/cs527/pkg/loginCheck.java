@@ -40,6 +40,7 @@ public class loginCheck extends HttpServlet {
 			int userId = 0;
 			
 			if (rs.next()) {
+//<<<<<<< HEAD
 				//HttpSession session = request.getSession();
 				session.setAttribute("email", email);
 				userId = rs.getInt("user_id");
@@ -107,20 +108,31 @@ public class loginCheck extends HttpServlet {
 				String bankAccountNo = rs.getString("bank_account_no");
 				session.setAttribute("bankAccountNo", bankAccountNo);
 				
-				response.sendRedirect("WelcomePage.jsp");
+				//response.sendRedirect("WelcomePage.jsp");
+//=======
+				
+								
+//>>>>>>> master
 			} else {
-				request.setAttribute("message", "Invalid username or password");
-				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-				rd.forward(request, response);
+				String query = "SELECT * FROM CUSTOMER_REPRESENTATIVE WHERE EMPLOYEE_ID = ?";
+				ps = con.prepareStatement(query);
+				ps.setInt(1, userId);
+				rs = ps.executeQuery();
+				
+				/* HttpSession session = request.getSession(); */
+				
+				session.setAttribute("user_id", userId);
+				
+				if(rs.next()) {
+					response.sendRedirect("CustomerRepHomePage.jsp");
+				} else 				
+					response.sendRedirect("WelcomePage.jsp");				
 				}
 			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

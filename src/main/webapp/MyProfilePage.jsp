@@ -32,9 +32,13 @@
 					<!-- <li class = "active" ><a href="#">Home</a></li> -->
 					<li><a href="#">Create Auction</a></li>
 					<li><a href="#">Place Bid</a></li>
+					<li><a href="QuestionsPage.jsp">Q&A</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<!-- <li><a href="#">Sign Up <i class = "fa fa-user-plus"></i></a></li> -->
+					<%if(session.getAttribute("email").equals("admin")){ %>
+						<li><a href="AdminPage.jsp">Administrator</a></li>
+					<%}%>
 					<li>
 						<form id="lgout" action="logout" method="POST">						
 							<a href="#" onclick="document.querySelector('#lgout').submit()">Log out <i class = "fa fa-user"></i></a>
@@ -58,6 +62,8 @@
 					<hr>
 					<form action="WelcomePage.jsp" method="POST">
 						<button class = "btn btn-default btn-lg size">Create New Auction</button>
+						<hr>
+						<button class = "btn btn-default btn-lg size" type="button" value="load" onclick="window.location='InterestPage.jsp'" >My Interests</button>
 					</form>
 				</div>
 			</div>
