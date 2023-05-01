@@ -23,7 +23,7 @@ public class ApplicationDB {
 			
 			//con = DriverManager.getConnection("jdbc:postgresql:://localhost:3306/cs527project1db?user=root&password=kautjosh&ssl=true");
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/buyme", "root", "kautjosh");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/buyme", "root", "MySQLServer812#");
 			
 			//Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
 		} catch (SQLException e) {

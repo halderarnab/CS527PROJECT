@@ -15,7 +15,7 @@ public class loginCheck extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
-		
+		boolean skip = true; 
 		try {	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
@@ -47,10 +47,12 @@ public class loginCheck extends HttpServlet {
 				session.setAttribute("userId", userId);
 				//response.sendRedirect("welcome.jsp");
 			} else {
-				session.invalidate();
+				//session.invalidate();
 				request.setAttribute("message", "Invalid username or password");
-				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
 				rd.forward(request, response);
+				skip = false;
+				log("Skipp = true");
 				}
 			con.close();
 		} catch (SQLException e) {
@@ -66,7 +68,7 @@ public class loginCheck extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		if(skip) {
 		//Adding new from here
 		try {
 
@@ -108,7 +110,7 @@ public class loginCheck extends HttpServlet {
 				String bankAccountNo = rs.getString("bank_account_no");
 				session.setAttribute("bankAccountNo", bankAccountNo);
 				
-				//response.sendRedirect("WelcomePage.jsp");
+				response.sendRedirect("WelcomePage.jsp");
 //=======
 				
 								
@@ -139,6 +141,7 @@ public class loginCheck extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 	}
 	
 }
