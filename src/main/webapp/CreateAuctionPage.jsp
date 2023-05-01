@@ -141,7 +141,7 @@
 		 <label for="startprice">Start Price:</label> 
 		 <input type="number" id="startprice" name="startprice"> <br> <br> 
 		 
-		 <label for="minprice">Min Price (hidden):</label>
+		 <label for="minprice">Minimum Price (hidden):</label>
 		 <input type="number" id="minprice" name="minprice"> <br> <br>
 	
 		<input type="file" id="imageName" name="imageName">
