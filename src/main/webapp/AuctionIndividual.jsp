@@ -21,12 +21,17 @@
 		}
 		function validateForm(currPrice, increment) {
 		    var bidPrice = parseFloat(document.getElementById("bidPrice").value);
+		    var autoBid = parseFloat(document.getElementById("autoBid").value);
 		    if (bidPrice <= currPrice) {
 		        alert("Bid amount must be greater than current price.");
 		        return false;
 		    }
 		    if (bidPrice < (currPrice+increment)) {
 		        alert("Bidding amount increment should be greter than the minimum increment value.");
+		        return false;
+		    }
+		    if (autoBid <= bidPrice) {
+		        alert("Auto bid limit should be greater than current bid amount. Even same amount does not make sense.");
 		        return false;
 		    }
 		    return true;
@@ -164,7 +169,7 @@
 	<button onclick="showPopup()" type="submit">Bid Now</button>
 	<div id="popup">
 		<div id="popup-container">
-			<form action="PostBid" method="post" onsubmit="return validateForm(<%= currPrice %>, <%= increment %>)">
+			<form action="PostBid" method="post" onsubmit="return validateForm(<%= currPrice %>, autoBid, <%= increment %>)">
 				<p style="text-align: left;"><b>Current Price:</b> <%= currPrice %></p>
 				<label for="bidPrice">Price:</label>
 				<input type="text" id="bidPrice" name="bidPrice"><br><br>
