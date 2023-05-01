@@ -12,14 +12,11 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(name = "loginCheck", urlPatterns = {"/loginCheck"})
 public class loginCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public loginCheck(){
-		
-	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response){
-		try {
-
+		HttpSession session = request.getSession();
+		boolean skip = true; 
+		try {	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
@@ -40,26 +37,22 @@ public class loginCheck extends HttpServlet {
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			
+			int userId = 0;
+			
 			if (rs.next()) {
-				int uid = rs.getInt("user_id");
-				String query = "SELECT * FROM CUSTOMER_REPRESENTATIVE WHERE EMPLOYEE_ID = ?";
-				ps = con.prepareStatement(query);
-				ps.setString(1, rs.getString("user_id"));
-				rs = ps.executeQuery();
-				
-				HttpSession session = request.getSession();
+//<<<<<<< HEAD
+				//HttpSession session = request.getSession();
 				session.setAttribute("email", email);
-				session.setAttribute("user_id", uid);
-				
-				if(rs.next()) {
-					response.sendRedirect("CustomerRepHomePage.jsp");
-				} else 				
-					response.sendRedirect("WelcomePage.jsp");
-								
+				userId = rs.getInt("user_id");
+				session.setAttribute("userId", userId);
+				//response.sendRedirect("welcome.jsp");
 			} else {
+				//session.invalidate();
 				request.setAttribute("message", "Invalid username or password");
 				RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
 				rd.forward(request, response);
+				skip = false;
+				log("Skipp = true");
 				}
 			con.close();
 		} catch (SQLException e) {
@@ -75,6 +68,80 @@ public class loginCheck extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(skip) {
+		//Adding new from here
+		try {
+
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			
+			ResultSet rs = null;
+
+			//Make an insert statement for the Sells table:
+			String getSessionDetails= "SELECT * FROM end_user WHERE user_id=?";
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			PreparedStatement ps = con.prepareStatement(getSessionDetails);
+
+			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
+			int userId = (int) session.getAttribute("userId");
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				String phoneNo = rs.getString("phone_no");
+				session.setAttribute("phoneNo", phoneNo);
+
+				String address = rs.getString("address");
+				session.setAttribute("address", address);
+
+				String cardNo = rs.getString("card_no");
+				session.setAttribute("cardNo", cardNo);
+
+				Date cardExpiry = rs.getDate("card_expiry");
+				session.setAttribute("cardExpiry", cardExpiry);
+
+				String cvv = rs.getString("cvv");
+				session.setAttribute("cvv", cvv);
+
+				String name = rs.getString("name");
+				session.setAttribute("name", name);
+
+				String bankAccountNo = rs.getString("bank_account_no");
+				session.setAttribute("bankAccountNo", bankAccountNo);
+				
+				response.sendRedirect("WelcomePage.jsp");
+//=======
+				
+								
+//>>>>>>> master
+			} else {
+				String query = "SELECT * FROM CUSTOMER_REPRESENTATIVE WHERE EMPLOYEE_ID = ?";
+				ps = con.prepareStatement(query);
+				ps.setInt(1, userId);
+				rs = ps.executeQuery();
+				
+				/* HttpSession session = request.getSession(); */
+				
+				session.setAttribute("user_id", userId);
+				
+				if(rs.next()) {
+					response.sendRedirect("CustomerRepHomePage.jsp");
+				} else 				
+					response.sendRedirect("WelcomePage.jsp");				
+				}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	}
 	
 }
