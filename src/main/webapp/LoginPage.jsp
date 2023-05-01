@@ -55,6 +55,7 @@
 					    }
 					%>
 					</div>
+					<a href="SignUpPage.jsp">Sign Up</a>
 				</div>
 			</div>
 		</div>

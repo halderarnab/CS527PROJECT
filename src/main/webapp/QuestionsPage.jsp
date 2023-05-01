@@ -58,39 +58,57 @@
 	<div class = "container">
 		<div class = "row">
 			<div class = "col-lg-12">
-				<div >			
+				<div >	
+				<% try {
+							//Get the database connection
+							ApplicationDB db = new ApplicationDB();	
+							Connection con = db.getConnection();						
+							//Create a SQL statement
+							String keyword = request.getParameter("keyword");							
+							String email = session.getAttribute("email").toString();
+				%>
 					<h2 align="center">Add Question</h2><br>		
 					<form action="PostQuestion.jsp" method="POST" align="center">						
 						<input type="text" name="question" placeholder="300 words or less" size="100" maxlength="300" required><br><br>
 						<input type="submit" value="Post Question">
 					</form>
-					<h2 align="center">Questions and Answers</h2><br>					
+					<h2 align="center">Search Question</h2><br>		
+					<form action="QuestionsPage.jsp" method="POST" align="center">						
+						<input type="text" name="keyword" placeholder="Search by Keyword" size="100" maxlength="300"><br><br>
+						<input type="submit" value="Search">
+					</form>
+					<%if (keyword != null && !keyword.isBlank()) {%>
+			  			<h3 align="center">Showing results for: <%= keyword %></h3>
+			  		<%}%>
+					<h2 align="center">Your Questions and Answers</h2><br>					
 					<table id="cust_rep" style="width:100%" align="center">
 						<tr>
 							<th>No.</th>
 							<th>Questions</th>
 							<th>Answers</th>
 						</tr>
-						<% try {
-							//Get the database connection
-							ApplicationDB db = new ApplicationDB();	
-							Connection con = db.getConnection();						
-							//Create a SQL statement
-							Statement stmt = con.createStatement();
-							
-							String email = session.getAttribute("email").toString();
+						<% 
 							
 							String query = "SELECT * FROM USER WHERE EMAIL = ?";
 							PreparedStatement ps = con.prepareStatement(query);
 							
 							ps.setString(1, email);
-							ResultSet result = ps.executeQuery();
-							result.next();
-							query = "SELECT * FROM QUESTIONS WHERE USER_ID = ?" ;
-							ps = con.prepareStatement(query);
-							ps.setString(1, result.getString("user_id"));
-							result = ps.executeQuery();
+							ResultSet result1 = ps.executeQuery();
+							result1.next();
+							ResultSet result;
 							
+							if(keyword == null || keyword.isBlank()) {
+								query = "SELECT * FROM QUESTIONS WHERE USER_ID = ?" ;
+								ps = con.prepareStatement(query);
+								ps.setString(1, result1.getString("user_id"));	
+								result = ps.executeQuery();
+							}
+							else {
+								query = "SELECT * FROM QUESTIONS WHERE USER_ID = ? AND QUESTION LIKE '%" + keyword + "%'" ;								
+								PreparedStatement ps1 = con.prepareStatement(query);
+								ps1.setString(1, result1.getString("user_id"));								
+								result = ps1.executeQuery();
+							}							
 							int count = 1;
 							while(result.next()) {
 						%>
