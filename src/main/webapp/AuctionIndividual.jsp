@@ -92,7 +92,7 @@
 	</nav>
 	
 	<%
-		String imageName = (String) session.getAttribute("imageName");
+		// String imageName = (String) session.getAttribute("imageName");
 		//int auctionId = Integer.parseInt((int) session.getAttribute("auctionId"));
 		int auctionId = (int) session.getAttribute("auctionId");
 
@@ -110,6 +110,7 @@
 			//Run the query against the database.
 			resultAuc = ps.executeQuery();
 			
+			String imageName = null;
 			String description = null;
 			int startPrice = 0;
 			int increment = 0;
@@ -120,6 +121,7 @@
 			int category_id = 0;
 			int sub_category_id = 0;
 			if (resultAuc.next()) {
+				imageName = resultAuc.getString("image_name");
 				description = resultAuc.getString("description");
 				startPrice = resultAuc.getInt("start_price");
 				increment = resultAuc.getInt("increment");
