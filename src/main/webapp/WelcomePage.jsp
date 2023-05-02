@@ -137,12 +137,6 @@
 		<button type ="submit">Search</button>
 		</form>
 		
-		<form>
-		
-			<input type="text" name="Set Alert" placeholder="Search.."> <br> <br>
-			<button type ="submit">Create Alert</button>
-			
-		</form>
 	</div>
 	
 		<% try {
@@ -169,7 +163,7 @@
 				
 			}
 			query += ";";			
-			out.println("query : " + query);
+			/* out.println("query : " + query); */
 
 			ResultSet result = stmt.executeQuery(query);
 			
@@ -192,6 +186,7 @@
 				<form action="goToAuction" method="post">
 					<button  type="submit"> Go To Auction</button>
 					<input type="hidden" name="auctionid" value=<%= result.getInt("auction_id") %> />
+					
 				</form>
 				<br>
 				<hr style="clear: both;">

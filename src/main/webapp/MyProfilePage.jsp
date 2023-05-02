@@ -82,6 +82,8 @@
 			ResultSet resultBidHistory = null;
 			ResultSet resultSellHistory = null;
 			ResultSet resultUserAlert = null;
+
+			ResultSet resultInterests = null;
 	 		String enteredUserEmail = request.getParameter("user_email");
 	 		if (enteredUserEmail != null && !enteredUserEmail.isEmpty()) {
 	 			//String strBidHistory = "select distinct b.user_id, a.name from bid b, auction a where user_id = ? and b.auction_id = a.auction_id;";
@@ -108,6 +110,46 @@
 				resultSellHistory = ps4.executeQuery();
 			}
 			////////////////////////////////////////////////////////////////
+			
+				String interestQuery = "SELECT interest_id, interest_name FROM interest WHERE user_id = ? and alert_created = 0;";
+	 			PreparedStatement ps6 = con.prepareStatement(interestQuery);
+	 			ps6.setInt(1, userId);
+	 	  		resultInterests = ps6.executeQuery();
+	 			/* out.println("interestQuery:"+ps6.toString()); */
+
+	 	  		while(resultInterests.next())
+	 	  		{
+					String 	interestName = resultInterests.getString("interest_name");
+					int interestId =  resultInterests.getInt("interest_id");
+					
+					String existInterest = "SELECT name FROM auction WHERE name LIKE ?;";
+		 			PreparedStatement ps7 = con.prepareStatement(existInterest);
+		 			ps7.setString(1, "%" + interestName + "%");
+		 			/* out.println("existInterest:"+ps7.toString()); */
+		 			ResultSet resultExistInterest = ps7.executeQuery();
+		 			if(resultExistInterest.next())
+		 			{
+		 				String alertMsg = "An item you might be interested in '" + interestName +"' is up for auction";
+		 				String insertAlert = "Insert into user_alert (user_id,alert_message) VALUES(?,?);";
+			 			PreparedStatement ps8 = con.prepareStatement(insertAlert);
+			 			ps8.setInt(1, userId);
+			 			ps8.setString(2, alertMsg);
+			 			ps8.execute();
+			 			
+			 			/* out.println("alertMsg:"+ps8.toString()); */
+
+			 			
+			 			String updateInterst = "UPDATE interest SET alert_created = 1 where interest_id = ?";
+			 			PreparedStatement ps9 = con.prepareStatement(updateInterst);
+			 			ps9.setInt(1, interestId);
+			 			ps9.execute();
+			 			/* out.println("updateInterst:"+ps9.toString()); */
+			 			
+			 			
+		 				break;
+		 			}
+	 	  		}
+				
 	 			String strUserAlert = "SELECT alert_message, alert_time FROM user_alert WHERE user_id = ? AND ALERT_TIME >= (NOW() - INTERVAL 1 MONTH) ORDER BY ALERT_TIME DESC;";
 	 			PreparedStatement ps5 = con.prepareStatement(strUserAlert);
 	 			ps5.setInt(1, userId);
