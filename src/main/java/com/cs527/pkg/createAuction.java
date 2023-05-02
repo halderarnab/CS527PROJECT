@@ -112,7 +112,7 @@ public class createAuction extends HttpServlet {
 			pstmt.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
 			pstmt.setTimestamp(11, sqlDate);
 			pstmt.setInt(12, Integer.parseInt(session.getAttribute("user_id").toString()));
-			pstmt.setString(13, session.getAttribute("seller_email").toString());
+			pstmt.setString(13, session.getAttribute("email").toString());
 			
 //			System.out.println("user id: " + );
 
